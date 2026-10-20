@@ -84,6 +84,55 @@
     /* Judul Bagian */
     .section-title h2 { color: #f8fafc; font-size: 2.5rem; font-weight: 700; position: relative; padding-bottom: 20px; margin-bottom: 20px; }
     .section-title h2::after { content: ''; position: absolute; display: block; width: 60px; height: 4px; background: #38bdf8; bottom: 0; left: calc(50% - 30px); border-radius: 2px; }
+
+    /* ========================================================
+       MODIFIKASI BOTTOM NAVIGATION BAR (KHUSUS MOBILE)
+    ======================================================== */
+    @media (max-width: 991px) {
+      /* Sembunyikan menu navigasi desktop dan tombol hamburger yang rusak */
+      .navmenu ul, .mobile-nav-toggle { display: none !important; }
+      
+      /* Tambahkan ruang di bawah agar footer tidak tertutup menu */
+      body { padding-bottom: 70px; } 
+    }
+
+    .mobile-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0 15px 0; /* Padding ekstra untuk area bawah HP modern */
+      z-index: 9999;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-bottom-nav .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: all 0.3s ease;
+      width: 25%;
+    }
+
+    .mobile-bottom-nav .nav-item i {
+      font-size: 1.4rem;
+      margin-bottom: 2px;
+    }
+
+    .mobile-bottom-nav .nav-item:hover, 
+    .mobile-bottom-nav .nav-item.active {
+      color: #38bdf8;
+      transform: translateY(-3px);
+    }
   </style>
 </head>
 
@@ -96,6 +145,7 @@
         <h1 class="sitename">Leonardo<span style="color: #38bdf8;">.</span></h1>
       </a>
 
+      <!-- Menu Navigasi Desktop -->
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Beranda</a></li>
@@ -103,6 +153,7 @@
           <li><a href="#portfolio">Portofolio</a></li>
           <li><a href="#contact">Kontak</a></li>
         </ul>
+        <!-- Tombol Hamburger disembunyikan via CSS -->
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
@@ -266,7 +317,6 @@
 
         <div class="row gy-4 justify-content-center mt-3">
           <div class="col-lg-4 col-md-6">
-            <!-- Tautan langsung ke Gmail Web Compose (Boleh pakai target="_blank") -->
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=wisnuleonardo97@gmail.com&su=Pesan%20dari%20Website%20Portofolio" target="_blank" style="text-decoration: none;">
               <div class="about-card text-center text-white">
                 <i class="bi bi-envelope" style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 15px; display: block;"></i>
@@ -292,15 +342,46 @@
 
   <footer id="footer" class="footer position-relative" style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 30px 0;">
     <div class="container">
-      <!-- Menghapus text-muted dan menambahkan warna terang manual -->
       <div class="copyright text-center" style="color: #cbd5e1;">
         <p class="mb-0">© <span>Hak Cipta 2026</span> <strong class="px-1 text-white">Leonardo Wisnu Pradana</strong></p>
       </div>
     </div>
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" style="background-color: #38bdf8;"><i class="bi bi-arrow-up-short text-white"></i></a>
+  <!-- Scroll Top untuk Desktop (Disembunyikan jika mengganggu bisa via CSS) -->
+  <a href="#" id="scroll-top" class="scroll-top d-none d-lg-flex align-items-center justify-content-center" style="background-color: #38bdf8;"><i class="bi bi-arrow-up-short text-white"></i></a>
+
+  <!-- ========================================================
+       MOBILE BOTTOM NAVIGATION BAR
+  ======================================================== -->
+  <nav class="mobile-bottom-nav d-lg-none">
+    <a href="#hero" class="nav-item active" onclick="setActive(this)">
+      <i class="bi bi-house"></i>
+      <span>Beranda</span>
+    </a>
+    <a href="#about" class="nav-item" onclick="setActive(this)">
+      <i class="bi bi-person"></i>
+      <span>Tentang</span>
+    </a>
+    <a href="#portfolio" class="nav-item" onclick="setActive(this)">
+      <i class="bi bi-briefcase"></i>
+      <span>Proyek</span>
+    </a>
+    <a href="#contact" class="nav-item" onclick="setActive(this)">
+      <i class="bi bi-envelope"></i>
+      <span>Kontak</span>
+    </a>
+  </nav>
+
+  <!-- Skrip Sederhana untuk Efek Aktif pada Navigasi Bawah -->
+  <script>
+    function setActive(element) {
+      document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+  </script>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
